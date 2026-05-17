@@ -1,8 +1,8 @@
-# Automatización CI/CD, Publicación y Operación en Android
+# Automatización del Ciclo CI/CD, Publicación y Operación en Android
 
-## Autor
+## Información del Estudiante
 
-**Nombre:** Jhoseth Esneider Rozo Carrillo  
+**Nombre:** Ángel Rizo Arias  
 **Código:** 02230131027  
 **Programa:** Ingeniería de Sistemas  
 **Unidad:** Unidad 10 – CI/CD, Publicación y Operación  
@@ -11,68 +11,69 @@
 
 ---
 
-# Descripción del Proyecto
+# Descripción General del Proyecto
 
-Este proyecto implementa un flujo completo de automatización CI/CD para una aplicación Android utilizando GitHub Actions, Fastlane y Firebase Remote Config.
+Este proyecto presenta la implementación de un flujo completo de integración y entrega continua (CI/CD) para una aplicación Android, integrando herramientas como GitHub Actions, Fastlane y Firebase Remote Config.
 
-La solución permite:
+La solución desarrollada permite automatizar diferentes etapas del ciclo de vida del software móvil, incluyendo construcción, pruebas, despliegue y control de características en producción.
 
-- Ejecutar pruebas automáticas y análisis de cobertura
-- Generar builds automáticamente
-- Automatizar distribución beta con Fastlane
-- Configurar lanes de publicación
-- Implementar feature flags con Firebase Remote Config
-- Aplicar versionamiento mediante Conventional Commits
-- Integrar despliegue automatizado desde GitHub Actions
+Entre las capacidades principales se encuentran:
 
-El objetivo principal es simular un entorno real de integración y entrega continua utilizado en equipos profesionales de desarrollo móvil.
+- Automatización de pruebas unitarias y análisis de cobertura  
+- Generación automática de builds Android  
+- Distribución de versiones beta mediante Fastlane  
+- Configuración de pipelines de publicación  
+- Implementación de feature flags con Firebase Remote Config  
+- Aplicación de versionamiento basado en Conventional Commits  
+- Ejecución de despliegues automatizados desde GitHub Actions  
+
+El enfoque del proyecto simula un entorno real de desarrollo profesional con prácticas modernas de DevOps.
 
 ---
 
-# Objetivo
+# Objetivo del Proyecto
 
-Implementar un pipeline CI/CD funcional que permita:
+El propósito de esta implementación es construir un sistema CI/CD que permita:
 
-- Automatizar pruebas y generación de builds Android
-- Configurar Fastlane para automatizar publicación
-- Gestionar distribución beta mediante lanes
-- Integrar Firebase Remote Config
-- Habilitar feature flags en producción
-- Aplicar versionamiento basado en Conventional Commits
-- Ejecutar despliegues automáticos desde GitHub Actions
+- Automatizar la construcción y pruebas de aplicaciones Android  
+- Integrar Fastlane para la gestión de despliegues  
+- Facilitar la distribución beta de versiones  
+- Controlar funcionalidades mediante Remote Config  
+- Activar o desactivar características sin necesidad de actualizar la app  
+- Establecer un esquema de commits estructurado  
+- Ejecutar procesos automáticos desde GitHub Actions  
 
 ---
 
 # Tecnologías Utilizadas
 
-- Kotlin
-- Android Studio
-- Jetpack Compose
-- GitHub Actions
-- Fastlane
-- Firebase Remote Config
-- Firebase App Distribution
-- JaCoCo
-- JUnit
-- Gradle
-- Ruby + Bundler
+- Kotlin  
+- Android Studio  
+- Jetpack Compose  
+- GitHub Actions  
+- Fastlane  
+- Firebase Remote Config  
+- Firebase App Distribution  
+- JaCoCo  
+- JUnit  
+- Gradle  
+- Ruby (Bundler)  
 
 ---
 
-# Prerrequisitos
+# Requisitos Previos
 
-Antes de ejecutar el proyecto se requiere:
+Para ejecutar este proyecto es necesario contar con:
 
-- Android Studio actualizado
-- JDK 17
-- Ruby 3.0+
-- Bundler instalado
-- Cuenta Firebase
-- Git instalado
-- Proyecto Android funcional
-- GitHub Actions habilitado
+- Android Studio actualizado  
+- JDK 17  
+- Ruby 3 o superior  
+- Bundler instalado  
+- Cuenta activa en Firebase  
+- Git configurado correctamente  
+- Proyecto Android funcional  
 
-Comandos utilizados:
+Verificación de versiones:
 
 ```bash
 ruby --version
@@ -105,15 +106,13 @@ gradle/
 
 # Configuración de Fastlane
 
-## Instalación
-
-Inicialización del entorno:
+## Inicialización del entorno
 
 ```bash
 bundle init
 ```
 
-Configuración del Gemfile:
+## Dependencias
 
 ```ruby
 source "https://rubygems.org"
@@ -122,13 +121,13 @@ gem "fastlane"
 gem "fastlane-plugin-firebase_app_distribution"
 ```
 
-Instalación de dependencias:
+Instalación:
 
 ```bash
 bundle install
 ```
 
-Inicialización de Fastlane:
+Inicialización:
 
 ```bash
 bundle exec fastlane init
@@ -138,8 +137,6 @@ bundle exec fastlane init
 
 # Configuración del Appfile
 
-Archivo:
-
 ```ruby
 json_key_file("fastlane/google-play-credentials.json")
 package_name("com.universidad.pipelineci_cd")
@@ -147,9 +144,9 @@ package_name("com.universidad.pipelineci_cd")
 
 ---
 
-# Seguridad de Credenciales
+# Seguridad del Proyecto
 
-Los archivos sensibles fueron excluidos del repositorio:
+Los archivos sensibles se excluyen del repositorio para proteger credenciales:
 
 ```gitignore
 release-key.jks
@@ -160,92 +157,63 @@ fastlane/google-play-credentials.json
 
 # Configuración del Fastfile
 
-Se implementaron las 3 lanes solicitadas por la actividad.
+Se definieron tres flujos principales (lanes) para automatizar el proceso de entrega.
 
 ## Lane Beta
 
-```ruby
-lane :beta do
-```
-
-Función:
-
-- Genera bundle release
-- Firma automáticamente
-- Ejecuta distribución beta
-
----
+Encargada de generar una versión de prueba y distribuirla automáticamente.
 
 ## Lane Production
 
-```ruby
-lane :production do
-```
-
-Función:
-
-- Genera build release
-- Configura staged rollout
-- Prepara despliegue de producción
-
----
+Prepara el build final para despliegue en producción con configuración estable.
 
 ## Lane Promote_to_beta
 
-```ruby
-lane :promote_to_beta do
-```
-
-Función:
-
-- Promueve builds entre tracks
+Permite mover versiones entre canales de distribución.
 
 ---
 
-# Workflow de GitHub Actions
+# Integración con GitHub Actions
 
-El pipeline automatiza:
+El pipeline automatiza las siguientes etapas:
 
-1. Checkout del proyecto
-2. Configuración Java
-3. Configuración Ruby
-4. Instalación de dependencias
-5. Ejecución de pruebas
-6. Generación de reporte JaCoCo
-7. Validación de cobertura
-8. Ejecución de Fastlane
+1. Descarga del repositorio  
+2. Configuración del entorno Java y Ruby  
+3. Instalación de dependencias  
+4. Ejecución de pruebas automatizadas  
+5. Generación de reporte de cobertura  
+6. Validación de calidad del código  
+7. Ejecución de Fastlane  
 
 ---
 
-# Pipeline CI/CD
-
-## Flujo implementado
+# Flujo del Pipeline CI/CD
 
 ```text
-Commit
-   ↓
-GitHub Actions
-   ↓
-Pruebas Automáticas
-   ↓
-JaCoCo Coverage
-   ↓
-Fastlane
-   ↓
-Build Release
-   ↓
-Distribución Beta
-   ↓
-Firebase Remote Config
+Commit en repositorio
+        ↓
+Ejecución en GitHub Actions
+        ↓
+Pruebas automatizadas
+        ↓
+Generación de cobertura (JaCoCo)
+        ↓
+Ejecución de Fastlane
+        ↓
+Construcción del APK
+        ↓
+Distribución en beta
+        ↓
+Sincronización con Firebase Remote Config
 ```
 
 ---
 
-# Cobertura de Código con JaCoCo
+# Cobertura de Código
 
-Se configuró JaCoCo para medir cobertura de pruebas unitarias.
+Se utilizó JaCoCo para medir la calidad de las pruebas unitarias.
 
-Configuración principal:
+Configuración:
 
 ```kotlin
 jacoco {
@@ -253,36 +221,27 @@ jacoco {
 }
 ```
 
----
-
-# Pruebas Unitarias
-
-Se implementaron pruebas sobre:
-
-- Calculator
-- Operaciones matemáticas
-- Casos positivos
-- Casos negativos
-- Validaciones de división
+El pipeline valida automáticamente que la cobertura sea superior al 60%.
 
 ---
 
-# Resultado de Cobertura
+# Pruebas Implementadas
 
-Cobertura alcanzada:
+Se realizaron pruebas sobre:
 
-- Calculator → 95%
-- Cobertura general → superior al mínimo requerido
-
-El pipeline valida automáticamente que la cobertura sea mayor al 60%.
+- Operaciones matemáticas básicas  
+- Clase Calculator  
+- Validaciones positivas  
+- Validaciones de error  
+- Casos límite  
 
 ---
 
 # Firebase Remote Config
 
-Se integró Firebase Remote Config para manejar feature flags dinámicamente.
+Se integró Remote Config para controlar funcionalidades sin necesidad de actualizar la aplicación.
 
-Dependencias utilizadas:
+Dependencias:
 
 ```kotlin
 implementation(platform("com.google.firebase:firebase-bom:33.9.0"))
@@ -292,15 +251,15 @@ implementation("com.google.firebase:firebase-analytics")
 
 ---
 
-# Feature Flag Implementado
+# Feature Flag
 
-Parámetro configurado:
+Parámetro:
 
 ```text
 new_home_screen_enabled
 ```
 
-Valor por defecto:
+Valor inicial:
 
 ```text
 false
@@ -308,113 +267,41 @@ false
 
 ---
 
-# Implementación en MainViewModel
+# Comportamiento del Feature Flag
 
-```kotlin
-remoteConfig.setDefaultsAsync(
-    mapOf("new_home_screen_enabled" to false)
-)
-```
+## Estado OFF
 
----
+La aplicación muestra la interfaz clásica.
 
-# Funcionamiento del Feature Flag
+## Estado ON
 
-## Cuando el flag es false
-
-La aplicación muestra:
-
-```text
-LegacyHomeScreen
-```
-
-## Cuando el flag es true
-
-La aplicación muestra:
-
-```text
-NewHomeScreen
-```
+Se habilita una nueva interfaz de usuario dinámica.
 
 ---
 
 # Conventional Commits
 
-Se implementó versionamiento utilizando Conventional Commits.
-
-Archivo:
-
-```text
-.commitlintrc.json
-```
+Se implementó un sistema de versionamiento basado en commits estructurados.
 
 Configuración:
 
 ```json
 {
-  "extends": ["@commitlint/config-conventional"],
-  "rules": {
-    "subject-max-length": [2, "always", 72],
-    "body-max-line-length": [0, "always", 100]
-  }
+  "extends": ["@commitlint/config-conventional"]
 }
 ```
 
----
+Tipos utilizados:
 
-# Tipos de Commit Utilizados
-
-## feat
-
-Agrega nuevas funcionalidades.
-
-Ejemplo:
-
-```text
-feat: agregar integración de fastlane
-```
-
-Impacto:
-
-```text
-MINOR
-```
+- feat → nuevas funcionalidades  
+- fix → correcciones  
+- feat! → cambios incompatibles  
 
 ---
 
-## fix
+# Evidencias
 
-Corrige errores.
-
-Ejemplo:
-
-```text
-fix: corregir configuración de jacoco
-```
-
-Impacto:
-
-```text
-PATCH
-```
-
----
-
-## feat! o BREAKING CHANGE
-
-Introduce cambios incompatibles.
-
-Impacto:
-
-```text
-MAJOR
-```
-
----
-
-# Evidencias del Proyecto
-
-Las evidencias se encuentran en la carpeta:
+Toda la documentación visual del proyecto se encuentra en:
 
 ```text
 /evidencias/
@@ -422,97 +309,42 @@ Las evidencias se encuentran en la carpeta:
 
 ---
 
-# Checkpoint 1 — Fastlane Configurado
+# Checkpoints del Proyecto
 
-✔ Directorio fastlane/ creado correctamente  
-✔ Appfile configurado  
-✔ Fastfile funcional  
-✔ Lanes beta, production y promote_to_beta implementadas  
-✔ Gemfile.lock incluido en el repositorio  
-✔ Archivos sensibles excluidos con .gitignore
+## Fastlane configurado correctamente
+- lanes implementadas
+- dependencias instaladas
+- ejecución exitosa
 
----
+## Feature Flags funcionales
+- Remote Config activo
+- cambio dinámico de UI
+- integración completa
 
-# Checkpoint 2 — Feature Flag Implementado
-
-✔ Firebase Remote Config integrado  
-✔ Proyecto compila sin errores  
-✔ Feature flag configurado  
-✔ Navegación condicionada por flag  
-✔ Parámetro creado en Firebase
+## Versionamiento estructurado
+- Conventional Commits aplicado
+- pipeline documentado
+- automatización estable
 
 ---
 
-# Checkpoint 3 — Versionamiento y Documentación
+# Decisiones Técnicas
 
-✔ Conventional Commits implementados  
-✔ README documenta flujo completo  
-✔ Pipeline ejecutando Fastlane correctamente  
-✔ Commits usando convención semántica
+## GitHub Actions
+Permite automatizar todo el flujo CI/CD directamente desde el repositorio.
 
----
+## Fastlane
+Facilita la generación y distribución de builds sin intervención manual.
 
-# Decisiones de Diseño
+## Firebase Remote Config
+Permite modificar comportamiento de la app sin publicar nuevas versiones.
 
-## Uso de GitHub Actions
-
-Permite automatizar integración continua directamente desde GitHub.
-
----
-
-## Uso de Fastlane
-
-Facilita automatización de builds y despliegues Android.
+## Conventional Commits
+Mejora el control de versiones y la trazabilidad del proyecto.
 
 ---
 
-## Uso de Firebase Remote Config
-
-Permite activar funcionalidades sin publicar nuevas versiones.
-
----
-
-## Uso de Conventional Commits
-
-Facilita versionamiento semántico y automatización futura de changelogs.
-
----
-
-# Comandos Utilizados
-
-## Ejecutar pruebas
-
-```bash
-./gradlew testDebugUnitTest
-```
-
----
-
-## Generar reporte JaCoCo
-
-```bash
-./gradlew jacocoTestReport
-```
-
----
-
-## Ejecutar Fastlane beta
-
-```bash
-bundle exec fastlane beta
-```
-
----
-
-## Ver lanes disponibles
-
-```bash
-bundle exec fastlane lanes
-```
-
----
-
-# Repositorio
+# Repositorio del Proyecto
 
 ```bash
 git clone https://github.com/jerc31/Rozo-post2_u10.git
